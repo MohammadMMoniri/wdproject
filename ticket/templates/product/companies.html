@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <h1>{{company.title}}</h1>
+    <h3>tickets:</h3>
+    <ul>
+      {% for ticket in company.tickets.all %}
+      <li>
+        <a href="/product/tickets/{{ ticket.pk }}"
+          >{{ ticket.source }} {{ ticket.destination }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

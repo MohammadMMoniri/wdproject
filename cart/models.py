@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from product.models import Book
+from ticket.models import Ticket
 
 
 class ShoppingCart(models.Model):
@@ -9,7 +9,6 @@ class ShoppingCart(models.Model):
 
 
 class BookCountCart(models.Model):
-    book=models.ForeignKey(Book,on_delete=models.CASCADE)
-    count=models.PositiveIntegerField(default=1)
-    cart = models.ForeignKey(ShoppingCart,on_delete=models.CASCADE)
-
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    count = models.PositiveIntegerField(default=1)
+    cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE)

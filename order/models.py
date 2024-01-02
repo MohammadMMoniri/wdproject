@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from product.models import Book
+from ticket.models import Ticket
 
 
 class ShoppingOrder(models.Model):
@@ -12,12 +12,14 @@ class ShoppingOrder(models.Model):
     @property
     def total_price(self):
         sum_price = 0
-        for book_count in self.order_book_count.all():
-            sum_price += book_count.count * book_count.book.price
+        for ticket_count in self.order_ticket_count.all():
+            sum_price += ticket_count.count * ticket_count.ticket.price
         return sum_price
 
 
-class BookCountOrder(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+class TicketCountOrder(models.Model):
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     count = models.PositiveIntegerField(default=1)
-    order = models.ForeignKey(ShoppingOrder, on_delete=models.CASCADE, related_name='order_book_count')
+    order = models.ForeignKey(
+        ShoppingOrder, on_delete=models.CASCADE, related_name="order_ticket_count"
+    )
