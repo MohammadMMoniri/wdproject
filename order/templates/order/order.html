@@ -1,19 +1,18 @@
 {% block content %}
-    <h2>سفارش</h2>
-    <ul>
-        {% for order in orders %}
-            <h3> ORDER </h3>
-            {% for book_count in order.order_book_count.all %}
-            <li>
-                {{ book_count.book.title }} - {{ book_count.book.price }}
-                <p>count : {{ book_count.count }}</p>
-            </li>
-            {% endfor %}
-            <p>sum: {{ order.total_price }}</p>
-            <button class="finalize-order" data-order-id="{{ order.id }}">نهایی کردن سفارش</button>
-        {% endfor %}
+<h2>سفارش</h2>
+<ul>
+    {% for order in orders %}
+    <h3> ORDER </h3>
+    {% for ticket_count in order.order_ticket_count.all %}
+    <li>
+        {{ ticket_count.ticket.title }} - {{ ticket_count.ticket.price }}
+        <p>count : {{ ticket_count.count }}</p>
+    </li>
+    {% endfor %}
+    <p>sum: {{ order.total_price }}</p>
+    <button class="finalize-order" data-order-id="{{ order.id }}">نهایی کردن سفارش</button> {% endfor %}
 
-    </ul>
+</ul>
 {% endblock %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -44,7 +43,4 @@
 
         });
     });
-
-
-
 </script>

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <title>Title</title>
-  </head>
-  <body>
+</head>
+
+<body>
     {% for ticket in tickets %}
 
     <ul>
-      <li>
-        <a href="/tickets/{{ticket.pk}}/"
-          >{{ticket.source}} {{ticket.destination}} {{ticket.price}}</a
+        <li>
+            <a href="/product/tickets/{{ticket.pk}}/">{{ticket.source}} {{ticket.destination}} {{ticket.price}}</a
         >
       </li>
     </ul>

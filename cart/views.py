@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
-from cart.models import ShoppingCart, BookCountCart
+from cart.models import ShoppingCart, TicketCountCart
 from ticket.models import Ticket
 
 
@@ -10,7 +10,7 @@ from ticket.models import Ticket
 def shopping_cart_view(request):
     user_shopping_cart = ShoppingCart.objects.get(user=request.user)
 
-    tickets_in_cart = BookCountCart.objects.filter(cart=user_shopping_cart)
+    tickets_in_cart = TicketCountCart.objects.filter(cart=user_shopping_cart)
 
     context = {"tickets_in_cart": tickets_in_cart}
     return render(request, "cart/shopping_cart.html", context)
@@ -19,10 +19,10 @@ def shopping_cart_view(request):
 def add_to_cart(request):
     if request.method == "POST":
         ticket_id = request.POST.get("ticket_id")
-        ticket = get_object_or_404(Book, pk=ticket_id)
+        ticket = get_object_or_404(Ticket, pk=ticket_id)
 
         shopping_cart, created = ShoppingCart.objects.get_or_create(user=request.user)
-        ticket_count_cart, created = BookCountCart.objects.get_or_create(
+        ticket_count_cart, created = TicketCountCart.objects.get_or_create(
             cart=shopping_cart, ticket=ticket
         )
         if not created:
@@ -36,10 +36,10 @@ def add_to_cart(request):
 def remove_ticket(request):
     if request.method == "POST":
         ticket_id = request.POST.get("ticket_id")
-        ticket = get_object_or_404(Book, pk=ticket_id)
+        ticket = get_object_or_404(Ticket, pk=ticket_id)
         shopping_cart = get_object_or_404(ShoppingCart, user=request.user)
         ticket_count_cart = get_object_or_404(
-            BookCountCart, cart=shopping_cart, ticket=ticket
+            TicketCountCart, cart=shopping_cart, ticket=ticket
         )
         if ticket_count_cart.count < 2:
             ticket_count_cart.delete()

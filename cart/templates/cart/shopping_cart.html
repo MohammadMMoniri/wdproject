@@ -1,30 +1,27 @@
+ {% block content %}
+<h2>سبد خرید</h2>
+<ul>
+    {% for ticket_cart in tickets_in_cart %}
+    <li>
+        {{ ticket_cart.ticket.source }}-{{ticket_cart.ticket.destination}}-{{ ticket_cart.ticket.price }}
+        <p>count : {{ ticket_cart.count }}</p>
+        <button class="remove-from-cart" data-ticket-id="{{ ticket_cart.ticket.id }}">حذف</button>
+    </li>
+    {% endfor %}
 
-
-{% block content %}
-    <h2>سبد خرید</h2>
-    <ul>
-        {% for book_cart in books_in_cart %}
-            <li>
-                {{ book_cart.book.title }}-{{ book_cart.book.price }}
-                <p>count : {{ book_cart.count }}</p>
-                <button class="remove-from-cart" data-book-id="{{ book_cart.book.id }}">حذف</button>
-            </li>
-        {% endfor %}
-
-    </ul>
-    <button id="finalize-cart">نهایی کردن سبد خرید</button>
-{% endblock %}
+</ul>
+<button id="finalize-cart">نهایی کردن سبد خرید</button> {% endblock %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.remove-from-cart').click(function() {
-            var bookId = $(this).data('book-id');
+            var ticketId = $(this).data('ticket-id');
             $.ajax({
                 type: 'POST',
-                url: '/cart/remove-book/',
+                url: '/cart/remove-ticket/',
                 data: {
-                    'book_id': bookId,
+                    'ticket_id': ticketId,
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
                 success: function(response) {

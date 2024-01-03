@@ -6,7 +6,7 @@ from ticket.models import Ticket, Company
 
 def tickets_view(request):
     tickets = Ticket.objects.all()
-    content = {"ticket": tickets}
+    content = {"tickets": tickets}
     templates = loader.get_template("product/tickets.html")
     return HttpResponse(templates.render(content, request))
 
